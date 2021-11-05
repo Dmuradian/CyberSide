@@ -15,10 +15,15 @@ class NameForm(forms.Form):
     your_name = forms.CharField(label='your_name', max_length=100)
 
 
-class ContactForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
-    sender = forms.EmailField()
-    cc_myself = forms.BooleanField(required=False)
+# class ContactForm(forms.Form):
+#     subject = forms.CharField(max_length=100)
+#     message = forms.CharField(widget=forms.Textarea)
+#     sender = forms.EmailField()
+#     cc_myself = forms.BooleanField(required=False)
 
 
+class Contactus(forms.Form):
+    first_name = forms.CharField(max_length=100, required=True)
+    last_name = forms.CharField(max_length=100, required=True)
+    email = forms.EmailField(required=True)
+    message = forms.CharField(widget=forms.Textarea, max_length=500, required=True)
