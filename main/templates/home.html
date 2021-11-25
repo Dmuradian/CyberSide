@@ -1,61 +1,99 @@
 {% extends 'base.html' %}
+{% load static %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<title>justSoondar!</title>
+<link rel="stylesheet" href="{% static 'css/style112.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Coiny&display=swap" rel="stylesheet">
 {% block content %}
-<main class="container mt-3 mb-5">
-	<!-- featured news -->
-	<div class="row my-3">
-		<!-- Left -->
-		<div class="col-md-7">
-			<div class="card mb-3">
-			  <img src="media/{{first_news.image}}" class="card-img-top" alt="{{first_news.title}}">
-			  <div class="card-body">
-			    <h5 class="card-title">{{first_news.title}}</h5>
-			    <hr/>
-			    <p class="card-text"><a href="/detail/{{first_news.id}}" class="btn btn-sm btn-primary">Read Full</a></p>
-			  </div>
-			</div>
-		</div>
-		<!-- Right -->
-		<div class="col-md-5" style="max-height: 450px; overflow: auto;">
-			{% for news in three_news %}
-			<!-- News Box -->
-			<div class="card">
-			  <div class="row no-gutters">
-			    <div class="col-md-4">
-					<img src="media/{{news.image}}" class="card-img-top" alt="{{news.title}}">
-			    </div>
-			    <div class="col-md-8">
-			      <div class="card-body">
-			        <h5 class="card-title">{{news.title}}</h5>
-			        <p class="card-text"><a href="/detail/{{news.id}}" class="btn btn-sm btn-primary">Read Full</a></p>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			<hr/>
-			{% endfor %}
-		</div>
-	</div>
-	<!-- Category Wise News -->
-	{% for category in three_categories %}
-	<h3 class="border-bottom pb-1">{{category.title}} <a href="/category/{{category.id}}" class="float-right btn btn-sm btn-dark">In this Category</a></h3>
-	<div class="row my-4">
-		{% for news in category.news_set.all %}
-			{% if forloop.counter < 5 %}
-			<!-- News box -->
-			<div class="col-md-3">
-				<div class="card mb-3 shadow">
-				<img src="/media/{{news.image}}" class="card-img-top" alt="{{news.title}}">
-				<div class="card-body">
-					<h5 class="card-title">{{news.title}}</h5>
-					<hr/>
-					<p class="card-text"><a href="#" class="btn btn-sm btn-primary">Read Full</a></p>
-				</div>
-				</div>
-			</div>
-			{% endif %}
-		{% endfor %}
-	</div>
-	{% endfor %}
-	<!-- End Single Category -->
-</main>
+    <main class="container mt-3 mb-5">
+        <div class="row my-3">
+            <div class="col-md-7">
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                                class="active"
+                                aria-current="true" aria-label="Slide 1"></li>
+                        <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                                aria-label="Slide 2"></li>
+                        <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                                aria-label="Slide 3"></li>
+                    </div>
+                    <div class="carousel-inner">
+                        {% for object in random1 %}
+                            <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                                <img src="{{ object.image.url }}" style="height:485px;width:700px"
+                                     class="testi-overly d-block w-100" alt="sliderImg">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h1 class="animate__animated
+                    {% if forloop.counter0 == 0 %}
+                    animate__fadeInDown
+                    {% endif %}
+                    {% if forloop.revcounter == 1 %}
+                    animate__bounce
+                    {% endif %}
+                    {% if forloop.revcounter == 2 %}
+                    animate__fadeInRight
+                    {% endif %}"><a style="color: white;text-decoration: none" href="/detail/{{ object.id }}"><h5
+                                            style="text-align: center" class="card-title">{{ object.title }}</h5></a>
+                                    </h1>
+                                    <h3 class="animate__animated animate__zoomIn">{{ object.sub_title }}</h3>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5" style="max-height: 1000px; overflow: auto;">
+                {% for news in three_news %}
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="media/{{ news.image }}" class="card-img-top" alt="{{ news.title }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ news.title }}</h5>
+                                    <p class="card-text"><a href="/detail/{{ news.id }}"
+                                                            class="float-right btn btn-sm btn-dark">Read
+                                        Full</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                {% endfor %}
+            </div>
+        </div>
+        {% for category in three_categories %}
+            <h3 class="border-bottom pb-1">{{ category.title }} <a href="/category/{{ category.id }}"
+                                                                   class="float-right btn btn-sm btn-dark">In this
+                Category</a></h3>
+            <div class="row my-4">
+                {% for news in category.news_set.all %}
+                    {% if forloop.counter < 5 %}
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow">
+                                <img src="/media/{{ news.image }}" class="card-img-top" alt="{{ news.title }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ news.title }}</h5>
+                                    <hr/>
+                                    <p class="card-text"><a href="/detail/{{ news.id }}"
+                                                            class="float-right btn btn-sm btn-dark">Read Full</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
 {% endblock %}

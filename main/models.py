@@ -10,7 +10,7 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-# News Model
+
 class News(models.Model):
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
     title=models.CharField(max_length=300)
@@ -24,13 +24,13 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
-# Comments
+
 class Comment(models.Model):
     news=models.ForeignKey(News,on_delete=models.CASCADE)
     name=models.CharField(max_length=100)
     email=models.CharField(max_length=200)
     comment=models.TextField()
-    status=models.BooleanField(default=False)
+    status=models.BooleanField(default=True)
 
     def __str__(self):
         return self.comment

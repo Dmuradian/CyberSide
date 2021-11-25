@@ -1,29 +1,100 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bs4/bootstrap.min.css' %}"/>
+    <script type="text/javascript" src="{% static 'vendor/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/vendor/bs4/bootstrap.min.js' %}"></script>
     <meta charset="UTF-8">
-    <title>Log In</title>
+    <title>Login</title>
+    <link rel="icon" href=
+            "{% static 'img/icon2.png' %}"
+          type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
 </head>
 <body>
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
-                {{ form.as_p }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Log In</button>
+<nav class="navbar1">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img class="logo" src="{% static 'img/logo.png' %}" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="topnav">
+            <div class="topnav-right">
+                <a class="active" href="/">Home</a>
+                <a href="{% url 'all-news' %}">All News</a>
+                <a href="{% url 'all-category' %}">All Categories</a>
+                {% if user.is_authenticated %}
+                    {#                    <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>#}
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
             </div>
-        </form>
+        </div>
     </div>
+</nav>
+<br/>
+<br/>
+<h1 style="text-align: center">Login</h1>
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <label for="username">Username</label>
+            {{ form.username }}
 
-    <div class="border-top pt-3">
-       <small class="text-muted">
-           Do you need an account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a>
-       </small>
-    </div>
+            <label for="password">Password</label>
+            <input style=" -webkit-text-security: disc;" type="text" name="password" autofocus="" autocapitalize="none"
+                   autocomplete="password" maxlength="150" required="" id="password">
 
+        </fieldset>
+        <input type="submit" value="Login">
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a class="ml-2" href="{% url 'password_reset' %}">Forget password?</a>
+            </small>
+        </div>
+    </form>
+</div>
 
+{#    <h1>Contact us now!</h1>#}
+{#    <form method="POST">#}
+{#        {% csrf_token %}#}
+{#        {{ form.as_p }}#}
+{#        <button type="submit">Submit</button>#}
+{#    </form>#}
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<footer class="container1">
+    <h4 class="contact"><a href="{% url 'contact_us' %}">Contact us</a></h4>
+    <h4 class="last"><a class="back" id="backtoTop" onclick="scrollToTop();return false;" href="#">Back to Top</a></h4>
+</footer>
+<script>
+    function scrollToTop() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+</script>
 </body>
+
 </html>

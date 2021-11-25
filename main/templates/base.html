@@ -2,59 +2,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}Home Page{% endblock %}</title>
-    <!-- Bootstrap 4 CSS -->
+    <title>{% block title %}Cyber Side News{% endblock %}</title>
+    <link rel="icon" href=
+            "{% static 'img/icon2.png' %}"
+          type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/bs4/bootstrap.min.css' %}"/>
-    <!-- Main Jquery -->
     <script type="text/javascript" src="{% static 'vendor/jquery.min.js' %}"></script>
-    <!-- Bootstrap Js -->
     <script type="text/javascript" src="{% static '/vendor/bs4/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-<!-- Top News -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<nav class="navbar1">
     <div class="container">
-        <a class="navbar-brand" href="/">DAVID NEWS</a>
+        <a class="navbar-brand" href="/"><img class="logo" src="{% static 'img/logo.png' %}" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'all-news' %}">All News</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'all-category' %}">All Categories</a>
-                </li>
-                <li class="nav-item">
-                    {% if user.is_authenticated %}
-{#                        <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>#}
-                        <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-                    {% else %}
-                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-
-                        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                    {% endif %}
-            </ul>
+        <div class="topnav">
+            <div class="topnav-right">a
+                <a class="active" href="/">Home</a>
+                <a href="{% url 'all-news' %}">All News</a>
+                <a href="{% url 'all-category' %}">All Categories</a>
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{% url 'post-create' %}">Request Post</a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </nav>
 
 {% block content %}
 {% endblock %}
+
+
 <hr/>
-<footer class="text-muted">
-  <div class="container">
-    <p class="float-right">
-      <a href="{% url 'contact_us' %}">Contact</a>
-    </p>
-      <a href="#">Back to top</a>
-  </div>
+<footer class="container1">
+    <h4 class="contact"><a href="{% url 'contact_us' %}">Contact</a></h4>
+    <h4 class="last"><a class="back" id="backtoTop" onclick="scrollToTop();return false;" href="#">Back to Top</a></h4>
 </footer>
+<script>
+    function scrollToTop() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    window.addEventListener("beforeunload", function () {
+        document.body.classList.add("animate-out");
+    });
+</script>
 </body>
 </html>

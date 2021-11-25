@@ -13,29 +13,11 @@ def register(request):
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'account created for {username}')
-            return redirect('home')
+            messages.success(request, 'You are registered successfully!')
+            return redirect('login')
     else:
         form = UserForm()
     return render(request, 'users/register.html', {'form': form})
-
-
-# def get_name(request):
-#     if request.method == 'POST':
-#         form = NameForm(request.POST)
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             form.save()
-#             # redirect to a new URL:
-#             return HttpResponseRedirect('/thanks/')
-#     else:
-#         form = NameForm()
-#     return render(request, 'name.html', {'form': form})
-
-@login_required
-def show_name(request):
-    return render(request, 'users/name.html')
 
 
 def contact(request):
@@ -61,6 +43,7 @@ def contact(request):
         form = Contactus()
 
     return render(request, 'users/contact_us.html', {'form': form})
+
 
 def thank_you(request):
     return render(request, 'users/thank_you.html')
